@@ -71,7 +71,7 @@ module.exports = {
     },
 
     devServer: {//开发服务器
-        contentBase: path.resolve(__dirname, './src'),  // New
+        contentBase: path.resolve(__dirname, './'),  // New
         port: 9999,
         // historyApiFallback: true,
         hot: true,
