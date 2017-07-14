@@ -9,7 +9,7 @@
 <script>
 	export default {
 		name: 'owo-suggest',
-        props: ['addressModel', 'vm'],
+        props: ['addressModel'],
 		data() {
 			return {
                 address: {
@@ -20,7 +20,7 @@
 				ac: null
 			}
 		},
-        beforeCreate() {
+        created() {
             const that = this;
             const script = document.createElement('script');
             script.src = 'http://api.map.baidu.com/api?v=2.0&ak=Gqtw3ThvbFwecyzjaBUYOdHcOY98KCNa&callback=init';
@@ -32,12 +32,12 @@
                         const longitude = r.point.lng;
                         const latitude = r.point.lat;
 
-                        const ac = new BMap.Autocomplete({
+                        this.ac = new BMap.Autocomplete({
                             input: 'suggestId',
                             location: new BMap.Point(longitude, latitude)
                         });
-                        this.ac = ac;
-                        ac.addEventListener('onconfirm', function (e) {
+                        this.ac.setInputValue(this.address.street);
+                        this.ac.addEventListener('onconfirm', function (e) {
                             const _value = e.item.value;
                             const myValue = _value.province + _value.city + _value.district + _value.street + _value.business;
                             new BMap.Geocoder().getPoint(myValue, function (point) {
@@ -49,9 +49,8 @@
                                     alert('您选择地址没有解析到结果!');
                                     that.address.longitude = '';
                                     that.address.latitude = '';
-                                    that.address.street = '';
                                 }
-                                that.vm.$emit('address', that.address);
+                                that.$emit('address', that.address);
                             }, _value.city);
                         });
                     } else {

@@ -14,7 +14,11 @@
             </div>
         </div>
 
-        <owo-suggest class="suggest" :vm="vm" :addressModel="addressModel"></owo-suggest>
+        <owo-suggest
+            class="suggest"
+            :addressModel="addressModel"
+            @address="selectAddress"
+        ></owo-suggest>
 
         <div class="submit">
             <a class="info-submit-btn" href="javascript:;" @click="saveInfo">保存</a>
@@ -26,7 +30,6 @@
 	import {CHINA_DISTRICT} from '@lib/distpicker.data';
 	import Select from '@components/Select';
 	import Suggest from '@components/Suggest';
-    import Vue from 'vue';
 	export default {
 		name: 'openrack-list',
 		components: {
@@ -35,7 +38,6 @@
 		},
 		data() {
 			return {
-                vm: new Vue(),
 				addressMock: {
 					province: {
 						title: '省',
@@ -61,21 +63,19 @@
 					provinceId: '',
 					cityId: '',
 					areaId: '',
-					street: '',
+					street: '朱雀大街',
 					longitude: '',
 					latitude: '',
 				},
 
 			}
 		},
-        mounted() {
-            this.vm.$on('address', address => {
+		methods: {
+            selectAddress(address) {
                 this.addressModel.street = address.street;
                 this.addressModel.longitude = address.longitude;
                 this.addressModel.latitude = address.latitude;
-            });
-        },
-		methods: {
+            },
 			getProvinces(event) {
 				this.addressMock.city.list = CHINA_DISTRICT[event.target.value];
 				this.addressMock.area.list = [];
