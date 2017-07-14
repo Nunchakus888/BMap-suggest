@@ -22,9 +22,9 @@
 		},
         created() {
             const that = this;
-            const script = document.createElement('script');
-            script.src = 'http://api.map.baidu.com/api?v=2.0&ak=Gqtw3ThvbFwecyzjaBUYOdHcOY98KCNa&callback=init';
-            document.body.appendChild(script);
+//            const script = document.createElement('script');
+//            script.src = 'http://api.map.baidu.com/api?v=2.0&ak=Gqtw3ThvbFwecyzjaBUYOdHcOY98KCNa&callback=init';
+//            document.body.appendChild(script);
             window.onload = () => {
                 const geolocation = new BMap.Geolocation();
                 geolocation.getCurrentPosition(r => {
