@@ -6,7 +6,7 @@ const webpack = require('webpack');
 
 module.exports = {
     context: path.resolve(__dirname, './src'),
-    entry: ['./app.js'],
+    entry: './app.js',
     output: {
         filename: 'bundle.js',
         // chunkFilename: '[id].chunk.js',
